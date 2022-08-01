@@ -23,8 +23,8 @@ def get_video_info(url):
     likes_str = likes_label.split(' ')[0].replace(',','')
     result["likes"] = '0' if likes_str == 'No' else likes_str
     text_yt_formatted_strings = soup.find_all("yt-formatted-string", {"id": "text", "class": "ytd-toggle-button-renderer"})
-    result["likes"] = ''.join([ c for c in text_yt_formatted_strings[0].attrs.get("aria-label") if c.isdigit() ])
-    result["likes"] = 0 if result['likes'] == '' else int(result['likes'])
+    #result["likes"] = ''.join([ c for c in text_yt_formatted_strings[0].attrs.get("aria-label") if c.isdigit() ])
+    #result["likes"] = 0 if result['likes'] == '' else int(result['likes'])
     channel_name = soup.find("span", itemprop="author").next.next['content']
     channel_subscribers = videoSecondaryInfoRenderer['owner']['videoOwnerRenderer']['subscriberCountText']['accessibility']['accessibilityData']['label']
     result['channel'] = {'name': channel_name, 'subscribers': channel_subscribers}
@@ -39,7 +39,6 @@ if __name__ == "__main__":
     print(f"{Fore.GREEN}Дата публикации: {data['date_published']}")
     print(f"{Fore.GREEN}Продолжительность: {data['duration']}")
     print(f"{Fore.GREEN}Тэги: {data['tags']}")
-    print(f"{Fore.GREEN}Лайки: {data['likes']}")
     print(f"\n{Fore.GREEN}Описание: {data['description']}\n")
     print(f"\n{Fore.GREEN}Название канала: {data['channel']['name']}")
     print(f"{Fore.GREEN}Cабы: {data['channel']['subscribers']}")
